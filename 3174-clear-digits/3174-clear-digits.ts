@@ -1,17 +1,15 @@
 function clearDigits(s: string): string {
-    const stack: string[] = []; // Stack to store non-digit characters
+    let stack:string[] = [];
 
-    for (let char of s) {
-        if (!isNaN(Number(char))) {
-            // If the current character is a digit and the stack is not empty
-            if (stack.length > 0) {
-                stack.pop(); // Remove the closest non-digit to the left
+    for(let char of s){
+        if(!isNaN(Number(char))){
+            if(stack.length >0){
+                stack.pop();
             }
-        } else {
-            // If the character is not a digit, push it onto the stack
+        }else{
             stack.push(char);
         }
     }
 
-    return stack.join(''); // Join remaining characters to form the result string
-}
+    return stack.join('');
+};
