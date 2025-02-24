@@ -1,15 +1,15 @@
 function findMaxConsecutiveOnes(nums: number[]): number {
-    let maxCount = 0;
-    let currentCount = 0;
+    let consecutive = 0;
+    let currCount = 0;
 
     for(let i =0; i<nums.length; i++){
-        if(nums[i] ===1){
-            currentCount++;
-            maxCount = Math.max(maxCount, currentCount);
+        if(nums[i]  === 1){
+            currCount++;
+            consecutive = Math.max(consecutive, currCount);
         }else{
-            currentCount = 0;
+            currCount = 0
         }
     }
+    return consecutive;
 
-    return maxCount;
 };
