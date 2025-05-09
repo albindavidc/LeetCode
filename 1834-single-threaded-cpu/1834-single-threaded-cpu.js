@@ -99,7 +99,7 @@ class MinMap{
 
             if(rightChildIn < length){
                 let rightChildEl = this.heap[rightChildIn];
-                if(swapIndex === null && (rightChildEl[0] < element[0] || (rightChildEl[0] === element[0] && rightChildEl[1] < element[1]))){
+                if((swapIndex === null && (rightChildEl[0] < element[0] || (rightChildEl[0] === element[0] && rightChildEl[1] < element[1]))) || (swapIndex !== null && (rightChildEl[0] < this.heap[swapIndex][0] || (rightChildEl[0] === this.heap[swapIndex][0] && rightChildEl[1] < this.heap[swapIndex][1]))) ){
                     swapIndex = rightChildIn;
                 }
             }
