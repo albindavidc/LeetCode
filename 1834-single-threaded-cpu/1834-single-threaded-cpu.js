@@ -2,59 +2,115 @@
  * @param {number[][]} tasks
  * @return {number[]}
  */
-/**
- * @param {number[][]} tasks
- * @return {number[]}
- */
-/**
- * @param {number[][]} tasks
- * @return {number[]}
- */
 var getOrder = function(tasks) {
-    // Create array with index information and sort by enqueue time
-    const taskInfo = tasks.map((task, idx) => [task[0], task[1], idx]);
-    taskInfo.sort((a, b) => a[0] - b[0]);
-    
-    const result = [];
-    let time = 0;
+    let indexedTime = tasks.map((task, index) => [...task, index])
+    indexedTime.sort((a,b) => a[0] - b[0])
+
+    let result = [];
+    let availableTasks = new MinMap();
+    let currentTime = 0;
     let i = 0;
-    
-    // Use an array to store available tasks
-    const available = [];
-    
-    while (result.length < tasks.length) {
-        // Add all tasks that have arrived
-        while (i < taskInfo.length && taskInfo[i][0] <= time) {
-            available.push(taskInfo[i]);
-            i++;
+
+    while(i < indexedTime.length || !availableTasks.isEmpty()){
+        if(i < indexedTime.length && availableTasks.isEmpty() && currentTime < indexedTime[i][0]){
+            currentTime = indexedTime[i][0]
         }
-        
-        if (available.length === 0) {
-            // No tasks available, jump to next arrival time
-            if (i < taskInfo.length) {
-                time = taskInfo[i][0];
-                continue;
-            } else {
-                // No more tasks to process
+
+        while(i < indexedTime.length && indexedTime[i][0] <= currentTime){
+            availableTasks.insert([indexedTime[i][1], indexedTime[i][2], indexedTime[i][0]])
+            i++
+        }
+
+        if(!availableTasks.isEmpty()){
+            const [processingTime, originalIndex] = availableTasks.extractMin();
+            result.push(originalIndex);
+            currentTime += processingTime;
+
+        }
+    }
+
+    return result;
+
+
+};
+
+class MinMap{
+    constructor(){
+        this.heap = [];
+    }
+
+    isEmpty(){
+        return this.heap.length === 0;
+    }
+
+    insert(value){
+        this.heap.push(value);
+        this.bubbleUp();
+    }
+
+    extractMin(){
+        if(this.isEmpty()){
+            return null;
+        }
+
+        let min = this.heap[0];
+        let last = this.heap.pop();
+
+        if(!this.isEmpty()){
+            this.heap[0] = last;
+            this.sinkDown(0);
+        }
+        return min;
+    }
+
+    bubbleUp(){
+        let index = this.heap.length - 1;
+        let element = this.heap[index];
+
+        while(index > 0){
+            let parentIndex = Math.floor((index-1) /2);
+            let parent = this.heap[parentIndex];
+
+            if(element[0] > parent[0] || (element[0] === parent[0] && element[1] > parent[1])){
                 break;
             }
+
+            this.heap[parentIndex] = element;
+            this.heap[index] = parent;
+            index = parentIndex;
         }
-        
-        // Find the task with shortest processing time
-        available.sort((a, b) => {
-            // Sort by processing time first
-            if (a[1] !== b[1]) {
-                return a[1] - b[1];
-            }
-            // If processing times are equal, sort by original index
-            return a[2] - b[2];
-        });
-        
-        // Process the next task
-        const [_, processingTime, originalIndex] = available.shift();
-        result.push(originalIndex);
-        time += processingTime;
     }
-    
-    return result;
-};
+
+    sinkDown(index){
+        let length = this.heap.length;
+        let element = this.heap[index];
+
+        while(true){
+            let leftChildIn = 2 * index + 1;
+            let rightChildIn = 2 * index + 2;
+            let swapIndex = null;
+
+            if(leftChildIn < length){
+                let leftChildEl = this.heap[leftChildIn];
+                if(leftChildEl[0] < element[0] || (leftChildEl[0] === element[0] && leftChildEl[1] < element[1])){
+                    swapIndex = leftChildIn
+                }
+            }
+
+            if(rightChildIn < length){
+                let rightChildEl = this.heap[rightChildIn];
+                if(swapIndex === null && (rightChildEl[0] < element[0] || (rightChildEl[0] === element[0] && rightChildEl[1] < element[1]))){
+                    swapIndex = rightChildIn;
+                }
+            }
+
+            if(swapIndex === null){
+                break;
+            }
+
+            this.heap[index] = this.heap[swapIndex];
+            this.heap[swapIndex] = element;
+            index = swapIndex
+        }
+    }
+}
