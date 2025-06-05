@@ -3,34 +3,33 @@
  * @return {string}
  */
 var longestPalindrome = function(s) {
-    if(!s) return '';
+    let transform = '^#' + s.split('').join('#') + '#$';
+    let n = transform.length;
 
-    let start = 0;
-    let maxLength = 1;
+    let P = new Array(n).fill(0);
+    let center = 0;
+    let right = 0;
 
-    function expandAroundTheCenter(left, right){
-        while(left >=0 && right < s.length && s[left]=== s[right]){
-            left--;
-            right++;
+    for(let i =1; i<n -1; i++){
 
-        }
-        return [right - left  - 1, left + 1]
-    }
-
-    for(let i =0; i<s.length; i++){
-        let [len1, start1] = expandAroundTheCenter(i, i);
-        let [len2, start2] = expandAroundTheCenter(i, i+1);
-
-        if(len1 > maxLength){
-            maxLength = len1;
-            start = start1;
+        if(i< right){
+            let mirror = 2 * center -i;
+            P[i] = Math.min(P[mirror], right -i);
         }
 
-        if(len2 > maxLength){
-            maxLength = len2;
-            start = start2;
+        while(transform[i+1+P[i]] === transform[i-1-P[i]]){
+            P[i]++;
+        }
+
+        if(i + P[i]> right){
+            center = i;
+            right = i+ P[i];
         }
     }
 
-    return s.substring(start, start + maxLength);
+    let maxLength = Math.max(...P)
+    let index = P.indexOf(maxLength);
+    
+    let start = Math.floor((index - maxLength) /2);
+    return s.slice(start,start+ maxLength)
 };
