@@ -4,18 +4,18 @@
  */
 function memoize(fn) {
     let cache = new Map();
-    let callCount = 0;
-
+    let callCount =0;
     return function(...args) {
-        let key = JSON.stringify(args)
+        let key = JSON.stringify(args);
         if(cache.has(key)){
             return cache.get(key);
         }else{
-            callCount++
+            callCount++;
             let result = fn(...args);
             cache.set(key, result);
-            return cache.get(key);
+            return result;
         }
+        
     }
 }
 
