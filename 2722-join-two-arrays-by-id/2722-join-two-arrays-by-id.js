@@ -19,7 +19,7 @@ var join = function(arr1, arr2) {
         }
     }
 
-    let finalResult = Array.from(map.values()).sort((a,b) => a-b)
+    let finalResult = Array.from(map.values()).sort((a,b) => a.id - b.id)
     return finalResult
 
 };
