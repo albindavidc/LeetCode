@@ -5,24 +5,23 @@ class EventEmitter {
      * @param {Function} callback
      * @return {Object}
      */
-
+    
     constructor(){
         this.event = new Map();
     }
-
     subscribe(eventName, callback) {
         if(!this.event.has(eventName)){
             this.event.set(eventName, [])
         }
 
-        let listener = this.event.get(eventName);
-        listener.push(callback);
-
+        let listeners = this.event.get(eventName);
+        listeners.push(callback);
+        
         return {
             unsubscribe: () => {
-                let index = listener.indexOf(callback);
+                let index = listeners.indexOf(callback);
                 if(index !== -1){
-                    listener.splice(index, 1);
+                    listeners.splice(index, 1)
                 }
             }
         };
