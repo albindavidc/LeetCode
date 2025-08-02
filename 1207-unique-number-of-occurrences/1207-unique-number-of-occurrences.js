@@ -2,21 +2,23 @@
  * @param {number[]} arr
  * @return {boolean}
  */
-var uniqueOccurrences = function(arr) {
-    let newMap = new Map();
+var uniqueOccurrences = function (arr) {
+    let uniqueVal = new Map();
 
-    for(let num of arr){
-        newMap.set(num, (newMap.get(num) || 0) + 1);
+    for (let num of arr) {
+        uniqueVal.set(num, (uniqueVal.get(num) || 0) + 1);
+
     }
 
-    let newValue = new Set()
+    let result = [];
 
-    for(let [key,value] of newMap){
-        if(newValue.has(value)){
+    for(let [key, value] of uniqueVal){
+        if(result.includes(value)){
             return false;
+        }else {
+            result.push(value)
         }
-        newValue.add(value)
     }
 
-    return true
+    return true;
 };
