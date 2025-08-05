@@ -8,8 +8,9 @@ var asteroidCollision = function(asteroids) {
     for(let asteroid of asteroids){
         let destroyed = false;
 
-        while(stack.length && stack[stack.length -1] > 0 && asteroid < 0){
-            let last = stack[stack.length -1];
+        while(stack.length && stack[stack.length - 1] > 0 && asteroid < 0){
+            let last = stack[stack.length - 1];
+
             if(last < -asteroid){
                 stack.pop();
                 continue;
