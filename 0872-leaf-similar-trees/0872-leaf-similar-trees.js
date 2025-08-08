@@ -11,29 +11,27 @@
  * @param {TreeNode} root2
  * @return {boolean}
  */
-var leafSimilar = function (root1, root2) {
-    function helperFn(root, result = []) {
-        if (!root) return result;
+var leafSimilar = function(root1, root2) {
+    function leafCountFn(root, result=[]){
+        if(!root) return result;
 
-        if (!root.left && !root.right) {
-            result.push(root.val)
-        } else {
-
-            helperFn(root.left, result)
-            helperFn(root.right, result)
+        if(!root.left && !root.right){
+            result.push(root.val);
+        }else{
+            leafCountFn(root.left, result);
+            leafCountFn(root.right, result);
         }
 
-
-        return result
+        return result;
     }
 
-    let root1Test = helperFn(root1);
-    let root2Test = helperFn(root2);
+    let root1Arr = leafCountFn(root1);
+    let root2Arr = leafCountFn(root2);
 
-    if(root1Test.length !== root2Test.length) return false;
+    if(root1Arr.length !== root2Arr.length) return false;
 
-    for(let i = 0; i<root1Test.length; i++){
-        if(root1Test[i] !== root2Test[i]) return false;
+    for(let i = 0; i<root1Arr.length; i++){
+        if(root1Arr[i] !== root2Arr[i]) return false;
     }
 
     return true;
