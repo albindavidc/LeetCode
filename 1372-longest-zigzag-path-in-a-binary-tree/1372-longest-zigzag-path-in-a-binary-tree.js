@@ -22,13 +22,13 @@ var longestZigZag = function(root) {
             dfs(root.right, 'right', length +1);
             dfs(root.left, 'left', 1);
         }else if(direction === 'right'){
-            dfs(root.left, 'left', length +1);
-            dfs(root.right, 'right', 1)
+            dfs(root.left, 'left', length + 1);
+            dfs(root.right, 'right', 1);
         }
     }
 
-    let left = dfs(root.left, 'left', 1);
-    let right = dfs(root.right, 'right', 1);
+    dfs(root.left, 'left', 1);
+    dfs(root.right, 'right', 1);
 
     return maxCount
 };
