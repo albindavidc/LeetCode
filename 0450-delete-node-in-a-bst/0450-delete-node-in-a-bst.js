@@ -11,22 +11,22 @@
  * @param {number} key
  * @return {TreeNode}
  */
-var deleteNode = function (root, key) {
-    if (!root) return null;
+var deleteNode = function(root, key) {
+    if(!root) return null;
 
-    if (key < root.val) {
+    if(key < root.val){
         root.left = deleteNode(root.left, key);
-    } else if (key > root.val) {
+    }else if(key > root.val){
         root.right = deleteNode(root.right, key);
-    } else {
-        if (!root.left && !root.right) {
+    }else{
+        if(!root.right && !root.left){
             return null;
         }
 
-        if (!root.left) {
-            return root.right
+        if(!root.left){
+            return root.right;
         }
-        if (!root.right) {
+        if(!root.right){
             return root.left;
         }
 
@@ -34,14 +34,15 @@ var deleteNode = function (root, key) {
         root.right = deleteNode(root.right, root.val)
     }
 
-
-
     return root
 };
-function findMin(root) {
-    if (!root) return null
-    if (!root.left) {
-        return root
+
+
+function findMin(root){
+    if(!root) return null;
+    if(!root.left){
+        return root;
+    }else {
+        return findMin(root.left)
     }
-    return findMin(root.left)
 }
