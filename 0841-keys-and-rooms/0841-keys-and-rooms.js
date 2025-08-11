@@ -3,7 +3,7 @@
  * @return {boolean}
  */
 var canVisitAllRooms = function(rooms) {
-    if(rooms.length <1) return false;
+    if(rooms.length < 1) return false;
 
     let queue = [0];
     let visited = new Set([0]);
@@ -11,13 +11,15 @@ var canVisitAllRooms = function(rooms) {
     while(queue.length >0){
         let node = queue.shift();
 
-        for(let neighbour of rooms[node]){
-            if(!visited.has(neighbour)){
-                visited.add(neighbour);
-                queue.push(neighbour)
+        for(let key of rooms[node]){
+            if(!visited.has(key)){
+                visited.add(key);
+                queue.push(key)
             }
         }
+
     }
 
     return rooms.length === visited.size
+
 };
