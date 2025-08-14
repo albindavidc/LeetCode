@@ -16,14 +16,14 @@ var guessNumber = function(n) {
     let right = n;
 
     while(left <= right){
-        let midd = Math.floor(left + (right-left) /2);
+        let midd = Math.floor(left + (right - left)/2);
         let res = guess(midd);
+
         if(res === 0) return midd;
-        else if(res === -1) {
-            right = midd - 1
+        else if(res === -1){
+            right = midd -1;
         }else if(res === 1){
-            left = midd +1
+            left = midd +1;
         }
     }
-
 };
