@@ -14,8 +14,8 @@ var calcEquation = function(equations, values, queries) {
         if(!graph[a]) graph[a] = [];
         if(!graph[b]) graph[b] = [];
 
-        graph[a].push([b, val]);
-        graph[b].push([a, 1/val]);
+        graph[a].push([b, val])
+        graph[b].push([a, 1/val])
     }
 
     let dfs = (start, end, visited) => {
@@ -37,8 +37,8 @@ var calcEquation = function(equations, values, queries) {
     }
 
     let result = [];
-    for(let [a,b] of queries){
-        result.push(dfs(a,b,new Set()))
+    for(let [c,d] of queries){
+        result.push(dfs(c,d, new Set()))
     }
 
     return result
