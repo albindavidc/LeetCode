@@ -75,7 +75,7 @@ var totalCost = function(costs, k, candidates) {
 
         if(left <= right){
             if(index < left){
-                heapPush(costs[left++], left)
+                heapPush(costs[left], left)
                 left++;
             }else{
                 heapPush(costs[right], right)
