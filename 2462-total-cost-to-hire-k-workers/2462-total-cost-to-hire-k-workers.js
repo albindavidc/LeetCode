@@ -70,6 +70,7 @@ var totalCost = function(costs, k, candidates) {
         
         let popped = heapPop();
         if(!popped) break;
+        
         let [cost, index] = popped
         totalCost += cost;
 
