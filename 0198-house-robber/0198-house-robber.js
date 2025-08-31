@@ -3,19 +3,17 @@
  * @return {number}
  */
 var rob = function(nums) {
-    let even = [];
-    let odd = [];
+    if(nums.length === 0) return 0;
+    if(nums.length === 1) return nums[0];
 
-    for(let i =0; i<nums.length; i++){
-        if(i % 2 === 0){
-            even.push(nums[i])
-        }else{
-            odd.push(nums[i])
-        }
+    let prev1 = 0;
+    let prev2 = 0;
+
+    for(let num of nums){
+        let temp = prev1;
+        prev1 = Math.max(prev2 + num, prev1);
+        prev2 = temp;
     }
 
-    let evenTotal = even.reduce((acc,curr) => acc + curr, 0);
-    let oddTotal = odd.reduce((acc, curr) => acc + curr, 0);
-
-    return evenTotal > oddTotal ? evenTotal : oddTotal
+    return prev1
 };
