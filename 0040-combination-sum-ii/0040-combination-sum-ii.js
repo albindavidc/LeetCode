@@ -4,28 +4,27 @@
  * @return {number[][]}
  */
 var combinationSum2 = function(candidates, target) {
-    let finalResult = []
+    let totalFinal = [];
+    candidates = candidates.sort((a,b) => a-b);
 
-    candidates = candidates.sort((a,b) => a-b)
-
-    function backTrack(start, result, total){
-        if(total === target){
-            finalResult.push([...result])
+    function backTrack(start, result, totalCandidates){
+        if(totalCandidates === target){
+            totalFinal.push([...result]);
             return;
         }
 
-        if(total > target) return
+        if(totalCandidates > target) return;
 
         for(let i = start; i<candidates.length; i++){
-            if(i > start && candidates[i] === candidates[i-1]) continue;
+            if(i > start && candidates[i] === candidates[i-1])continue;
 
-            result.push(candidates[i])
-            backTrack(i+1, result, total+candidates[i]);
+            result.push(candidates[i]);
+            backTrack(i+1, result, totalCandidates + candidates[i]);
             result.pop()
         }
+
     }
 
     backTrack(0, [], 0);
-
-    return finalResult
+    return totalFinal
 };
