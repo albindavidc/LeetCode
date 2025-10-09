@@ -3,7 +3,8 @@
  * @param {number} extraCandies
  * @return {boolean[]}
  */
-var kidsWithCandies = function(candies, extraCandies) {
-    let maxCandie = Math.max(...candies);
-    return candies.map(candie => candie+extraCandies >= maxCandie)
+var kidsWithCandies = function (candies, extraCandies) {
+    let greatest = Math.max(...candies);
+
+    return candies.map((n) => (n + extraCandies) >= greatest)
 };
