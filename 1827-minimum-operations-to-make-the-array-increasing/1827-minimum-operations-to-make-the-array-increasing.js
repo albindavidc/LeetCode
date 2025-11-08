@@ -4,12 +4,18 @@
  */
 var minOperations = function(nums) {
     let operations = 0;
-    
-    for(let i=1; i<nums.length; i++){
 
-        while(nums[i-1] >= nums[i]){
-            nums[i]++;
-            operations++;
+    for(let i = 0; i<nums.length; i++){
+        while(true){
+            if(nums[i] === nums[i+1]){
+                operations++
+                nums[i+1] = nums[i+1] + 1;
+            }else if (nums[i] > nums[i+1]){
+                operations++;
+                nums[i+1] = nums[i+1] +1
+            }else {
+                break;
+            }
         }
     }
 
