@@ -3,16 +3,11 @@
  * @return {number}
  */
 var largestAltitude = function(gain) {
-    let currAltitude = 0;
-    let heighestAltitude = 0;
+    let newAlt = [0];
 
-
-    for(let curr of gain){
-        currAltitude += curr;
-        heighestAltitude = Math.max(currAltitude, heighestAltitude);
+    for(let i = 0; i<gain.length; i++){
+        newAlt[i+1] = newAlt[i] + gain[i]
     }
 
-    return heighestAltitude
-
-
+    return Math.max(...newAlt)
 };
