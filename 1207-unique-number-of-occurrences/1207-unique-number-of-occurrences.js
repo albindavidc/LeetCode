@@ -2,23 +2,15 @@
  * @param {number[]} arr
  * @return {boolean}
  */
-var uniqueOccurrences = function (arr) {
-    let uniqueVal = new Map();
+var uniqueOccurrences = function(arr) {
+    let map = new Map();
 
-    for (let num of arr) {
-        uniqueVal.set(num, (uniqueVal.get(num) || 0) + 1);
-
+    for(let num of arr){
+        map.set(num, (map.get(num)|| 0)+1);
     }
 
-    let result = [];
+    let frequencyCounts = Array.from(map.values())
+    let uniqueSet = new Set(frequencyCounts)
 
-    for(let [key, value] of uniqueVal){
-        if(result.includes(value)){
-            return false;
-        }else {
-            result.push(value)
-        }
-    }
-
-    return true;
+    return uniqueSet.size === map.size
 };
