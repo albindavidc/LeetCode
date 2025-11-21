@@ -4,14 +4,19 @@
  */
 var removeStars = function(s) {
     let result = [];
+    let count = 0;
 
-    for(let char of s){
-        if(char === '*'){
-            result.pop()
+    for(let i = s.length -1; i>=0; i--){
+        if(s[i] === '*'){
+            count++
         }else{
-            result.push(char)
+            if(count > 0){
+                count--;
+            }else{
+                result.push(s[i])
+            }
         }
     }
 
-    return result.join('')
+    return result.reverse().join('')
 };
