@@ -12,7 +12,7 @@ var findContentChildren = function (g, s) {
     let i = 0;
     let j = 0;
 
-    while (i < g.length) {
+    while (i < g.length && j < s.length) {
         if (g[i] <= s[j]) {
             content++
             i++;
